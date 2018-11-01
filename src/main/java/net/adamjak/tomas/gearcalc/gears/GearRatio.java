@@ -40,9 +40,17 @@ public class GearRatio {
     private final int[] front;
     private final int[] rear;
 
-    public GearRatio(int[] front, int[] rear) {
+    GearRatio(int[] front, int[] rear) {
         this.front = front;
         this.rear = rear;
+    }
+
+    public int[] getFront() {
+        return front;
+    }
+
+    public int[] getRear() {
+        return rear;
     }
 
     @Override
