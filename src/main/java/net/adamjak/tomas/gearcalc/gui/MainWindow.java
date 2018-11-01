@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Adamjak <thomas@adamjak.net> 
+ * Copyright (c) 2018, Tomas Adamjak <thomas@adamjak.net>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -12,7 +12,7 @@
  *       notice, this list of conditions and the following disclaimer in the
  *       documentation and/or other materials provided with the distribution.
  *
- *     - Neither the name of Tomas Adamjak <thomas@adamjak.net>,  nor the names of its 
+ *     - Neither the name of Tomas Adamjak <thomas@adamjak.net>,  nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -39,7 +39,7 @@ import javax.swing.JFrame;
  * @author tadamjak
  */
 public class MainWindow extends JFrame {
-    
+
     private ResourceBundle messages;
 
     public MainWindow() throws HeadlessException {
@@ -54,11 +54,11 @@ public class MainWindow extends JFrame {
         this.messages = ResourceBundle.getBundle("locale/MessagesBundle", currentLocale);
         this.init();
     }
-    
-    public void init() {
+
+    public final void init() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(600, 400);
         this.setTitle(this.messages.getString("mainWindow.title"));
     }
-    
+
 }

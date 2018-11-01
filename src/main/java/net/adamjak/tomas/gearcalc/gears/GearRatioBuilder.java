@@ -27,30 +27,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.adamjak.tomas.gearcalc;
+package net.adamjak.tomas.gearcalc.gears;
 
-import net.adamjak.tomas.gearcalc.gui.MainWindow;
+import java.util.LinkedHashSet;
 
 /**
  *
- * @author tadamjak
+ * @author Tomas Adamjak <thomas@adamjak.net>
  */
-public class Main {
+public class GearRatioBuilder {
 
-    public static void main(String[] args) {
+    private LinkedHashSet<Integer> front = new LinkedHashSet<Integer>();
+    private LinkedHashSet<Integer> rear = new LinkedHashSet<Integer>();
 
-        String language;
-        String country;
-
-        if (args.length != 2) {
-            language = new String("en");
-            country = new String("US");
-        } else {
-            language = new String(args[0]);
-            country = new String(args[1]);
-        }
-
-        MainWindow mw = new MainWindow(language, country);
-        mw.setVisible(true);
+    public GearRatioBuilder addFront(int gear) {
+        this.front.add(gear);
+        return this;
     }
+
+    public GearRatioBuilder addFront(int... gears) {
+        for (int gear : gears) {
+            this.front.add(gear);
+        }
+        return this;
+    }
+
+    public GearRatioBuilder addRear(int gear) {
+        this.rear.add(gear);
+        return this;
+    }
+
+    public GearRatioBuilder addRear(int... gears) {
+        for (int gear : gears) {
+            this.rear.add(gear);
+        }
+        return this;
+    }
+
+    public GearRatioBuilder removeFront(int gear) {
+        if (this.front.contains(gear)) {
+            this.front.remove(gear);
+        }
+        return this;
+    }
+
+    public GearRatioBuilder removeRear(int gear) {
+        if (this.rear.contains(gear)) {
+            this.rear.remove(gear);
+        }
+        return this;
+    }
+
+    // TODO : dokoncit removeAll a remove ...
+    // TODO : vytvorit build metodu
 }

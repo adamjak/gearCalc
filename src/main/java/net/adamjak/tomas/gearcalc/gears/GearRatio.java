@@ -27,30 +27,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.adamjak.tomas.gearcalc;
+package net.adamjak.tomas.gearcalc.gears;
 
-import net.adamjak.tomas.gearcalc.gui.MainWindow;
+import java.util.Arrays;
 
 /**
  *
- * @author tadamjak
+ * @author Tomas Adamjak <thomas@adamjak.net>
  */
-public class Main {
+public class GearRatio {
 
-    public static void main(String[] args) {
+    private final int[] front;
+    private final int[] rear;
 
-        String language;
-        String country;
-
-        if (args.length != 2) {
-            language = new String("en");
-            country = new String("US");
-        } else {
-            language = new String(args[0]);
-            country = new String(args[1]);
-        }
-
-        MainWindow mw = new MainWindow(language, country);
-        mw.setVisible(true);
+    public GearRatio(int[] front, int[] rear) {
+        this.front = front;
+        this.rear = rear;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Arrays.hashCode(this.front);
+        hash = 83 * hash + Arrays.hashCode(this.rear);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GearRatio other = (GearRatio) obj;
+        if (!Arrays.equals(this.front, other.front)) {
+            return false;
+        }
+        if (!Arrays.equals(this.rear, other.rear)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GearRatio{" + "\n\tfront=" + front + "\n\trear=" + rear + "\n}";
+    }
+
 }
