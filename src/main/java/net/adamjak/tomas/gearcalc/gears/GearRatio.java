@@ -29,7 +29,10 @@
  */
 package net.adamjak.tomas.gearcalc.gears;
 
-import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -37,27 +40,35 @@ import java.util.Arrays;
  */
 public class GearRatio {
 
-    private final int[] front;
-    private final int[] rear;
+    private SortedSet<Integer> front;
+    private SortedSet<Integer> rear;
 
-    GearRatio(int[] front, int[] rear) {
-        this.front = front;
-        this.rear = rear;
+    GearRatio() {
+        this.front = new TreeSet<>();
+        this.rear = new TreeSet<>();
     }
 
-    public int[] getFront() {
+    public SortedSet<Integer> getFront() {
         return front;
     }
 
-    public int[] getRear() {
+    public SortedSet<Integer> getRear() {
         return rear;
+    }
+
+    public int[] getFrontAsArray() {
+        return this.intSetAsArray(this.front);
+    }
+
+    public int[] getRearAsArray() {
+        return this.intSetAsArray(this.rear);
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Arrays.hashCode(this.front);
-        hash = 83 * hash + Arrays.hashCode(this.rear);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.front);
+        hash = 29 * hash + Objects.hashCode(this.rear);
         return hash;
     }
 
@@ -73,10 +84,10 @@ public class GearRatio {
             return false;
         }
         final GearRatio other = (GearRatio) obj;
-        if (!Arrays.equals(this.front, other.front)) {
+        if (!Objects.equals(this.front, other.front)) {
             return false;
         }
-        if (!Arrays.equals(this.rear, other.rear)) {
+        if (!Objects.equals(this.rear, other.rear)) {
             return false;
         }
         return true;
@@ -85,6 +96,17 @@ public class GearRatio {
     @Override
     public String toString() {
         return "GearRatio{" + "\n\tfront=" + front + "\n\trear=" + rear + "\n}";
+    }
+
+    private <T extends Integer> int[] intSetAsArray(Set<T> set) {
+        int[] arr;
+        arr = new int[set.size()];
+        int i = 0;
+        for (Integer integer : set) {
+            arr[i] = integer.intValue();
+            i++;
+        }
+        return arr;
     }
 
 }
