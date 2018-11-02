@@ -40,20 +40,44 @@ import java.util.TreeSet;
  */
 public class GearRatio {
 
-    private SortedSet<Integer> front;
-    private SortedSet<Integer> rear;
+    private final SortedSet<Integer> front;
+    private final SortedSet<Integer> rear;
 
     GearRatio() {
         this.front = new TreeSet<>();
         this.rear = new TreeSet<>();
     }
 
+    public GearRatio addFrontGear(int gear) {
+        this.front.add(gear);
+        return this;
+    }
+
+    public GearRatio addRearGear(int gear) {
+        this.rear.add(gear);
+        return this;
+    }
+
+    public GearRatio removeFrontGear(int gear) {
+        if (this.front.contains(gear)) {
+            this.front.remove(gear);
+        }
+        return this;
+    }
+
+    public GearRatio removeRearGear(int gear) {
+        if (this.rear.contains(gear)) {
+            this.rear.remove(gear);
+        }
+        return this;
+    }
+
     public SortedSet<Integer> getFront() {
-        return front;
+        return this.front;
     }
 
     public SortedSet<Integer> getRear() {
-        return rear;
+        return this.rear;
     }
 
     public int[] getFrontAsArray() {
@@ -87,10 +111,7 @@ public class GearRatio {
         if (!Objects.equals(this.front, other.front)) {
             return false;
         }
-        if (!Objects.equals(this.rear, other.rear)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.rear, other.rear);
     }
 
     @Override
@@ -103,7 +124,7 @@ public class GearRatio {
         arr = new int[set.size()];
         int i = 0;
         for (Integer integer : set) {
-            arr[i] = integer.intValue();
+            arr[i] = integer;
             i++;
         }
         return arr;
