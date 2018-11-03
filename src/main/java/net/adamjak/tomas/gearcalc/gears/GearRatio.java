@@ -43,9 +43,6 @@ public class GearRatio {
     private final SortedSet<Integer> front;
     private final SortedSet<Integer> rear;
 
-    public static final int FRONT = 1;
-    public static final int REAR = 2;
-
     GearRatio() {
         this.front = new TreeSet<>();
         this.rear = new TreeSet<>();

@@ -27,26 +27,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.adamjak.tomas.gearcalc.gui;
+package net.adamjak.tomas.gearcalc.gears;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JComponent;
-import net.adamjak.tomas.gearcalc.gears.Gears;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  *
  * @author Tomas Adamjak <thomas@adamjak.net>
  */
-public class GearsGraph extends JComponent {
+public class Gears {
 
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        if (Gears.getInstance().getAllGears().isEmpty()) {
-            return;
+    private static Gears instance = null;
+
+    public enum GearLocation {
+        FRONT, REAR;
+    }
+
+    private Set<GearRatio> gearRatios;
+
+    private Gears() {
+        this.gearRatios = new LinkedHashSet<>();
+    }
+
+    public void addGearRatio(GearRatio gearRatio) {
+        this.gearRatios.add(gearRatio);
+    }
+
+    public void removeGearRatio(GearRatio gearRatio) {
+        if (this.gearRatios.contains(gearRatio)) {
+            this.gearRatios.remove(gearRatio);
         }
-        g2.drawLine(20, 30, 200, 300);
+    }
+
+    public Set<GearRatio> getAllGears() {
+        return Collections.unmodifiableSet(this.gearRatios);
+    }
+
+    public static Gears getInstance() {
+        if (instance == null) {
+            instance = new Gears();
+        }
+        return instance;
     }
 
 }
