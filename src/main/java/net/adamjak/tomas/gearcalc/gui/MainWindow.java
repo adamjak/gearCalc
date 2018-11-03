@@ -33,8 +33,10 @@ import java.awt.HeadlessException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import net.adamjak.tomas.gearcalc.gui.listeners.AddGearActionListener;
 
 /**
  *
@@ -76,7 +78,24 @@ public class MainWindow extends JFrame {
 
         mainPanel.add(gearsGraph);
 
+        mainPanel.add(this.bottomMenu());
+
         return mainPanel;
+    }
+
+    public JPanel bottomMenu() {
+        JPanel bottomMenu = new JPanel();
+        BoxLayout bl = new BoxLayout(bottomMenu, BoxLayout.X_AXIS);
+        bottomMenu.setLayout(bl);
+
+        JButton addGear = new JButton(this.messages.getString("mainWindow.bottomMenu.addGear"));
+        addGear.addActionListener(new AddGearActionListener(this.messages));
+        bottomMenu.add(addGear);
+
+        JButton removeGear = new JButton(this.messages.getString("mainWindow.bottomMenu.removeGear"));
+        bottomMenu.add(removeGear);
+
+        return bottomMenu;
     }
 
 }
