@@ -32,7 +32,9 @@ package net.adamjak.tomas.gearcalc.gui;
 import java.awt.HeadlessException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -59,6 +61,22 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(600, 400);
         this.setTitle(this.messages.getString("mainWindow.title"));
+
+        this.add(this.createMainPanel());
+    }
+
+    public JPanel createMainPanel() {
+
+        JPanel mainPanel = new JPanel();
+        BoxLayout bl = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
+
+        mainPanel.setLayout(bl);
+
+        GearsGraph gearsGraph = new GearsGraph();
+
+        mainPanel.add(gearsGraph);
+
+        return mainPanel;
     }
 
 }

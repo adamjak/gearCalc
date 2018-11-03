@@ -27,30 +27,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.adamjak.tomas.gearcalc;
+package net.adamjak.tomas.gearcalc.gui;
 
-import net.adamjak.tomas.gearcalc.gui.MainWindow;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JComponent;
+import net.adamjak.tomas.gearcalc.gears.GearRatio;
 
 /**
  *
- * @author tadamjak
+ * @author Tomas Adamjak <thomas@adamjak.net>
  */
-public class Main {
+public class GearsGraph extends JComponent {
 
-    public static void main(String[] args) {
+    private GearRatio gearRatio = null;
 
-        String language;
-        String country;
-
-        if (args.length != 2) {
-            language = "en";
-            country = "US";
-        } else {
-            language = args[0];
-            country = args[1];
-        }
-
-        MainWindow mw = new MainWindow(language, country);
-        mw.setVisible(true);
+    public void setGearRatio(GearRatio gearRatio) {
+        this.gearRatio = gearRatio;
+        repaint();
     }
+
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        if (this.gearRatio == null) {
+            return;
+        }
+        g2.drawLine(20, 30, 200, 300);
+    }
+
 }
