@@ -29,6 +29,21 @@
  */
 package net.adamjak.tomas.gearcalc;
 
+import java.awt.GridLayout;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import net.adamjak.tomas.gearcalc.gui.MainWindow;
 
 /**
@@ -37,20 +52,93 @@ import net.adamjak.tomas.gearcalc.gui.MainWindow;
  */
 public class Main {
 
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final String APP_NAME = "GearCalc";
+    private static final String CONF_DIR = USER_HOME + File.separator + ".config" + File.separator + APP_NAME;
+    private static final String LANG_FILE = CONF_DIR + File.separator + "lang";
+    private static final Langs DEFAULT_LANG = Langs.EN_US;
+
     public static void main(String[] args) {
 
-        String language;
-        String country;
+        Langs lang = null;
 
-        if (args.length != 2) {
-            language = "en";
-            country = "US";
-        } else {
-            language = args[0];
-            country = args[1];
+        if (isLangFile()) {
+            Optional<Langs> fileLang = getLang();
+            if (fileLang.isPresent()) {
+                lang = fileLang.get();
+            }
         }
 
-        MainWindow mw = new MainWindow(language, country);
+        if (lang == null) {
+            GridLayout gridLayout = new GridLayout(0, 2);
+            JPanel panel = new JPanel(gridLayout);
+            panel.add(new JLabel("Select language: "));
+            JComboBox<String> jcbLangSelector = new JComboBox<>(Langs.getAllLangNames());
+            panel.add(jcbLangSelector);
+            panel.add(new JLabel("Don't ask me next time: "));
+            JCheckBox jcbDontAskNextTime = new JCheckBox();
+            panel.add(jcbDontAskNextTime);
+
+            int selectLangDialog = JOptionPane.showConfirmDialog(null, panel, "Language", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (selectLangDialog == JOptionPane.OK_OPTION) {
+                Optional<Langs> langByLangName = Langs.getLangByLangName((String) jcbLangSelector.getSelectedItem());
+                if (langByLangName.isPresent()) {
+                    lang = langByLangName.get();
+                    if (jcbDontAskNextTime.isSelected()) {
+                        setLangFile(lang);
+                    }
+                } else {
+                    lang = DEFAULT_LANG;
+                }
+            } else {
+                System.exit(0);
+            }
+        }
+
+        MainWindow mw = new MainWindow(lang);
         mw.setVisible(true);
+    }
+
+    private static boolean isLangFile() {
+        File f = new File(LANG_FILE);
+        return (f.exists() && f.canRead() && f.isFile());
+    }
+
+    private static Optional<Langs> getLang() {
+        File fileToRead = new File(LANG_FILE);
+        List<String> fileLines;
+        try {
+            fileLines = Files.readAllLines(fileToRead.toPath());
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            return Optional.empty();
+        }
+        if (fileLines.size() == 2) {
+            for (Langs lang : Langs.values()) {
+                if (lang.getLang().equals(fileLines.get(0).trim()) && lang.getCountry().equals(fileLines.get(1).trim())) {
+                    return Optional.of(lang);
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    private static void setLangFile(Langs lang) {
+        File confDir = new File(CONF_DIR);
+        if (confDir.exists() == false) {
+            confDir.mkdir();
+        }
+
+        File langFile = new File(LANG_FILE);
+        try {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(langFile))) {
+                String content = lang.getLang() + System.lineSeparator() + lang.getCountry();
+                bw.write(content);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "File can not be created.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

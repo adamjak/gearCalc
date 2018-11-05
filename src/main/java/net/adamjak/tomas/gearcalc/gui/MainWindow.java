@@ -36,6 +36,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import net.adamjak.tomas.gearcalc.Langs;
 import net.adamjak.tomas.gearcalc.gui.listeners.AddGearActionListener;
 
 /**
@@ -47,13 +48,13 @@ public class MainWindow extends JFrame {
     private ResourceBundle messages;
 
     public MainWindow() throws HeadlessException {
-        this("en", "EN");
+        this(Langs.EN_US);
     }
 
-    public MainWindow(String language, String country) {
+    public MainWindow(Langs lang) {
         Locale currentLocale;
 
-        currentLocale = new Locale(language, country);
+        currentLocale = new Locale(lang.getLang(), lang.getCountry());
 
         this.messages = ResourceBundle.getBundle("locale/MessagesBundle", currentLocale);
         this.init();
