@@ -40,10 +40,12 @@ import java.util.TreeSet;
  */
 public class GearRatio {
 
+    private final String name;
     private final SortedSet<Integer> front;
     private final SortedSet<Integer> rear;
 
-    GearRatio() {
+    GearRatio(String name) {
+        this.name = name;
         this.front = new TreeSet<>();
         this.rear = new TreeSet<>();
     }
@@ -70,6 +72,10 @@ public class GearRatio {
             this.rear.remove(gear);
         }
         return this;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public SortedSet<Integer> getFront() {

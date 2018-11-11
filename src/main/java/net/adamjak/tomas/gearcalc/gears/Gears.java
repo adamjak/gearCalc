@@ -45,7 +45,7 @@ public class Gears {
         FRONT, REAR;
     }
 
-    private Set<GearRatio> gearRatios;
+    private final Set<GearRatio> gearRatios;
 
     private Gears() {
         this.gearRatios = new LinkedHashSet<>();

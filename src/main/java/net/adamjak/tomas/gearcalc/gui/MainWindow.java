@@ -30,14 +30,16 @@
 package net.adamjak.tomas.gearcalc.gui;
 
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.adamjak.tomas.gearcalc.Langs;
-import net.adamjak.tomas.gearcalc.gui.listeners.AddGearActionListener;
 
 /**
  *
@@ -90,13 +92,33 @@ public class MainWindow extends JFrame {
         bottomMenu.setLayout(bl);
 
         JButton addGear = new JButton(this.messages.getString("mainWindow.bottomMenu.addGear"));
-        addGear.addActionListener(new AddGearActionListener(this.messages));
+        addGear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showAddGearDialog();
+            }
+        });
         bottomMenu.add(addGear);
 
         JButton removeGear = new JButton(this.messages.getString("mainWindow.bottomMenu.removeGear"));
         bottomMenu.add(removeGear);
 
         return bottomMenu;
+    }
+
+    private void showAddGearDialog() {
+        String inputString = JOptionPane.showInputDialog(
+                null,
+                this.messages.getString("dialog.addGear.message"),
+                this.messages.getString("dialog.addGear.title"),
+                JOptionPane.QUESTION_MESSAGE);
+
+        try {
+            Integer gear = Integer.valueOf(inputString);
+        } catch (NumberFormatException nfe) {
+            System.out.println(nfe.getStackTrace());
+            JOptionPane.showMessageDialog(null, this.messages.getString("dialog.addGear.error"), null, JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
