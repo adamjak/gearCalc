@@ -44,6 +44,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.adamjak.tomas.gearcalc.gears.Gears;
 import net.adamjak.tomas.gearcalc.gui.MainWindow;
 
 /**
@@ -60,6 +61,27 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // data for testing - start
+        String bikeName = "GT";
+        Gears.getInstance().creatBike(bikeName);
+        // front 36-24
+        Gears.getInstance()
+                .addGear(bikeName, Gears.GearLocation.FRONT, 36)
+                .addGear(bikeName, Gears.GearLocation.FRONT, 24);
+        // rear 11-13-15-18-21-24-28-32-36-42
+        Gears.getInstance()
+                .addGear(bikeName, Gears.GearLocation.REAR, 11)
+                .addGear(bikeName, Gears.GearLocation.REAR, 13)
+                .addGear(bikeName, Gears.GearLocation.REAR, 15)
+                .addGear(bikeName, Gears.GearLocation.REAR, 18)
+                .addGear(bikeName, Gears.GearLocation.REAR, 21)
+                .addGear(bikeName, Gears.GearLocation.REAR, 24)
+                .addGear(bikeName, Gears.GearLocation.REAR, 28)
+                .addGear(bikeName, Gears.GearLocation.REAR, 32)
+                .addGear(bikeName, Gears.GearLocation.REAR, 36)
+                .addGear(bikeName, Gears.GearLocation.REAR, 42);
+
+        // data for testing - end
         Langs lang = null;
 
         if (isLangFile()) {

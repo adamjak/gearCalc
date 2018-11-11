@@ -40,14 +40,24 @@ import java.util.TreeSet;
  */
 public class GearRatio {
 
-    private final String name;
     private final SortedSet<Integer> front;
     private final SortedSet<Integer> rear;
 
-    GearRatio(String name) {
-        this.name = name;
+    GearRatio() {
         this.front = new TreeSet<>();
         this.rear = new TreeSet<>();
+    }
+
+    public GearRatio addGear(Gears.GearLocation gearLocation, int gear) throws IllegalArgumentException {
+        if (gearLocation == null) {
+            throw new IllegalArgumentException("Param gearLocation can not be null.");
+        }
+        if (gearLocation == Gears.GearLocation.FRONT) {
+            this.addFrontGear(gear);
+        } else if (gearLocation == Gears.GearLocation.REAR) {
+            this.addRearGear(gear);
+        }
+        return this;
     }
 
     public GearRatio addFrontGear(int gear) {
@@ -72,10 +82,6 @@ public class GearRatio {
             this.rear.remove(gear);
         }
         return this;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public SortedSet<Integer> getFront() {

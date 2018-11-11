@@ -30,8 +30,8 @@
 package net.adamjak.tomas.gearcalc.gears;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -45,24 +45,37 @@ public class Gears {
         FRONT, REAR;
     }
 
-    private final Set<GearRatio> gearRatios;
+    private final Map<String, GearRatio> bikeGears;
 
     private Gears() {
-        this.gearRatios = new LinkedHashSet<>();
+        this.bikeGears = new LinkedHashMap<>();
     }
 
-    public void addGearRatio(GearRatio gearRatio) {
-        this.gearRatios.add(gearRatio);
-    }
-
-    public void removeGearRatio(GearRatio gearRatio) {
-        if (this.gearRatios.contains(gearRatio)) {
-            this.gearRatios.remove(gearRatio);
+    /**
+     *
+     * @param name - name of new bike gear ratio
+     * @throws IllegalArgumentException if param name is null or empty
+     */
+    public void creatBike(String name) throws IllegalArgumentException {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Param name can not be null.");
         }
+        this.bikeGears.put(name, new GearRatio());
     }
 
-    public Set<GearRatio> getAllGears() {
-        return Collections.unmodifiableSet(this.gearRatios);
+    public Gears addGear(String bike, GearLocation location, int gear) throws IllegalArgumentException {
+        if (bike == null || bike.isEmpty() || location == null) {
+            throw new IllegalArgumentException("Params name and location can not be null.");
+        }
+        if (this.bikeGears.containsKey(bike) == false) {
+            throw new IllegalArgumentException("Bike " + bike + " is not found.");
+        }
+        this.bikeGears.get(bike).addGear(location, gear);
+        return this;
+    }
+
+    public Map<String, GearRatio> getAllGears() {
+        return Collections.unmodifiableMap(this.bikeGears);
     }
 
     public static Gears getInstance() {
@@ -72,4 +85,8 @@ public class Gears {
         return instance;
     }
 
+    @Override
+    public String toString() {
+        return "Gears{" + "bikeGears=" + bikeGears + '}';
+    }
 }

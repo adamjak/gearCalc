@@ -54,6 +54,8 @@ public class MainWindow extends JFrame {
     }
 
     public MainWindow(Langs lang) {
+        System.setProperty("awt.useSystemAAFontSettings", "on");
+        System.setProperty("swing.aatext", "true");
         Locale currentLocale;
 
         currentLocale = new Locale(lang.getLang(), lang.getCountry());
@@ -108,16 +110,20 @@ public class MainWindow extends JFrame {
 
     private void showAddGearDialog() {
         String inputString = JOptionPane.showInputDialog(
-                null,
+                this,
                 this.messages.getString("dialog.addGear.message"),
                 this.messages.getString("dialog.addGear.title"),
                 JOptionPane.QUESTION_MESSAGE);
+
+        if (inputString == null || inputString.isEmpty()) {
+            return;
+        }
 
         try {
             Integer gear = Integer.valueOf(inputString);
         } catch (NumberFormatException nfe) {
             System.out.println(nfe.getStackTrace());
-            JOptionPane.showMessageDialog(null, this.messages.getString("dialog.addGear.error"), null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, this.messages.getString("dialog.addGear.error"), null, JOptionPane.ERROR_MESSAGE);
         }
     }
 

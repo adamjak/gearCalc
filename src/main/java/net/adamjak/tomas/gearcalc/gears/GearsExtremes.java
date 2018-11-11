@@ -27,34 +27,71 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.adamjak.tomas.gearcalc.gui;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JComponent;
-import net.adamjak.tomas.gearcalc.gears.Gears;
+package net.adamjak.tomas.gearcalc.gears;
 
 /**
  *
  * @author Tomas Adamjak <thomas@adamjak.net>
  */
-public class GearsGraph extends JComponent {
+public final class GearsExtremes {
 
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+    private int frontMin;
+    private int frontMax;
+    private int rearMin;
+    private int rearMax;
 
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2.setBackground(Color.WHITE);
-        g2.setStroke(new BasicStroke(3));
-        if (Gears.getInstance().getAllGears().isEmpty()) {
-            return;
-        }
-        g2.drawLine(20, 30, 200, 300);
+    private GearsExtremes() {
     }
 
+    public static class Builder {
+
+        private GearsExtremes toBuild;
+
+        public Builder() {
+            this.toBuild = new GearsExtremes();
+        }
+
+        public GearsExtremes build() {
+            GearsExtremes build = this.toBuild;
+            this.toBuild = new GearsExtremes();
+            return build;
+        }
+
+        public Builder setFrontMin(int gear) {
+            this.toBuild.frontMin = gear;
+            return this;
+        }
+
+        public Builder setFrontMax(int gear) {
+            this.toBuild.frontMax = gear;
+            return this;
+        }
+
+        public Builder setRearMin(int gear) {
+            this.toBuild.rearMin = gear;
+            return this;
+        }
+
+        public Builder setRearMax(int gear) {
+            this.toBuild.rearMax = gear;
+            return this;
+        }
+
+    }
+
+    public int getFrontMin() {
+        return frontMin;
+    }
+
+    public int getFrontMax() {
+        return frontMax;
+    }
+
+    public int getRearMin() {
+        return rearMin;
+    }
+
+    public int getRearMax() {
+        return rearMax;
+    }
 }
