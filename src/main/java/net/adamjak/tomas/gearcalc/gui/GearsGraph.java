@@ -34,8 +34,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import javax.swing.JComponent;
 import net.adamjak.tomas.gearcalc.gears.Gears;
+import net.adamjak.tomas.gearcalc.gears.GearsExtremes;
 
 /**
  *
@@ -43,18 +45,66 @@ import net.adamjak.tomas.gearcalc.gears.Gears;
  */
 public class GearsGraph extends JComponent {
 
+    private final static int PADDING_TOP = 10;
+    private final static int PADDING_BOTTOM = 30;
+    private final static int PADDING_LEFT = 30;
+    private final static int PADDING_RIGHT = 10;
+
+    private final static Stroke DEFAULT_STROKE_1 = new BasicStroke(1);
+    private final static Stroke DEFAULT_STROKE_3 = new BasicStroke(3);
+    private final static Stroke DOTTED_STROKE_1 = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1, 5}, 0);
+
     @Override
+
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2.setBackground(Color.WHITE);
-        g2.setStroke(new BasicStroke(3));
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2.setColor(Color.DARK_GRAY);
+        g2.setStroke(DEFAULT_STROKE_3);
         if (Gears.getInstance().getAllGears().isEmpty()) {
             return;
         }
-        g2.drawLine(20, 30, 200, 300);
+
+        GearsExtremes ge = Gears.getInstance().getGearsExtremes();
+
+        this.drawXByExtremes(g2, ge);
+        this.drawYByExtremes(g2, ge);
     }
 
+    private void drawXByExtremes(Graphics2D g2, GearsExtremes ge) {
+        g2.drawLine(PADDING_LEFT, this.getHeight() - PADDING_BOTTOM, this.getWidth() - PADDING_RIGHT, this.getHeight() - PADDING_BOTTOM);
+        int rearCount = ge.getRearMax() - ge.getRearMin();
+        int segment = (this.getWidth() - PADDING_LEFT - PADDING_RIGHT) / (rearCount + 1);
+        int quarterSegment = segment / 4;
+        int halfSegment = segment / 2;
+
+        for (int i = 0; i <= rearCount; i++) {
+
+            g2.setStroke(DOTTED_STROKE_1);
+            g2.drawLine(
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    PADDING_TOP,
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    this.getHeight() - PADDING_BOTTOM);
+
+            g2.setStroke(DEFAULT_STROKE_1);
+            g2.drawLine(
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    this.getHeight() - PADDING_BOTTOM,
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    this.getHeight() - (PADDING_BOTTOM / 4 * 3));
+
+            g2.drawString(String.valueOf(i + ge.getRearMin()), PADDING_LEFT + (i * segment) + halfSegment, this.getHeight() - (PADDING_BOTTOM / 2));
+        }
+
+        g2.setStroke(DEFAULT_STROKE_3);
+    }
+
+    private void drawYByExtremes(Graphics2D g2, GearsExtremes ge) {
+        g2.drawLine(PADDING_LEFT, PADDING_TOP, PADDING_LEFT, this.getHeight() - PADDING_BOTTOM);
+    }
 }

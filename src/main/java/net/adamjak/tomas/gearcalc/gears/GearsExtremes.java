@@ -48,32 +48,48 @@ public final class GearsExtremes {
         private GearsExtremes toBuild;
 
         public Builder() {
+            this.prepareToBuild();
+        }
+
+        private void prepareToBuild() {
             this.toBuild = new GearsExtremes();
+            this.toBuild.frontMax = Integer.MIN_VALUE;
+            this.toBuild.frontMin = Integer.MAX_VALUE;
+            this.toBuild.rearMax = Integer.MIN_VALUE;
+            this.toBuild.rearMin = Integer.MAX_VALUE;
         }
 
         public GearsExtremes build() {
             GearsExtremes build = this.toBuild;
-            this.toBuild = new GearsExtremes();
+            this.prepareToBuild();
             return build;
         }
 
         public Builder setFrontMin(int gear) {
-            this.toBuild.frontMin = gear;
+            if (this.toBuild.frontMin > gear) {
+                this.toBuild.frontMin = gear;
+            }
             return this;
         }
 
         public Builder setFrontMax(int gear) {
-            this.toBuild.frontMax = gear;
+            if (this.toBuild.frontMax < gear) {
+                this.toBuild.frontMax = gear;
+            }
             return this;
         }
 
         public Builder setRearMin(int gear) {
-            this.toBuild.rearMin = gear;
+            if (this.toBuild.rearMin > gear) {
+                this.toBuild.rearMin = gear;
+            }
             return this;
         }
 
         public Builder setRearMax(int gear) {
-            this.toBuild.rearMax = gear;
+            if (this.toBuild.rearMax < gear) {
+                this.toBuild.rearMax = gear;
+            }
             return this;
         }
 

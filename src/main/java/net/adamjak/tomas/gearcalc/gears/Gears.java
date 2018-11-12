@@ -85,6 +85,24 @@ public class Gears {
         return instance;
     }
 
+    public GearsExtremes getGearsExtremes() {
+        if (this.bikeGears.isEmpty()) {
+            return null;
+        }
+
+        GearsExtremes.Builder geb = new GearsExtremes.Builder();
+
+        for (String key : this.bikeGears.keySet()) {
+            GearRatio gr = this.bikeGears.get(key);
+            geb.setFrontMax(gr.getFront().last());
+            geb.setFrontMin(gr.getFront().first());
+            geb.setRearMax(gr.getRear().last());
+            geb.setRearMin(gr.getRear().first());
+        }
+
+        return geb.build();
+    }
+
     @Override
     public String toString() {
         return "Gears{" + "bikeGears=" + bikeGears + '}';

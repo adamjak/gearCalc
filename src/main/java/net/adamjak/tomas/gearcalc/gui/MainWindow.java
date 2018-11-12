@@ -66,7 +66,7 @@ public class MainWindow extends JFrame {
 
     public final void init() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(600, 400);
+        this.setSize(1000, 400);
         this.setTitle(this.messages.getString("mainWindow.title"));
 
         this.add(this.createMainPanel());
