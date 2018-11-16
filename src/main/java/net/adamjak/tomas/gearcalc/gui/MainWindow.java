@@ -47,6 +47,8 @@ import net.adamjak.tomas.gearcalc.Langs;
  */
 public class MainWindow extends JFrame {
 
+    private static final int DEFAULT_WINDOW_HEIGHT = 400;
+    private static final int DEFAULT_WINDOW_WIDTH = 1000;
     private ResourceBundle messages;
 
     public MainWindow() throws HeadlessException {
@@ -66,7 +68,7 @@ public class MainWindow extends JFrame {
 
     public final void init() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(1000, 400);
+        this.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
         this.setTitle(this.messages.getString("mainWindow.title"));
 
         this.add(this.createMainPanel());

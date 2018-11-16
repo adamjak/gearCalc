@@ -103,6 +103,22 @@ public class Gears {
         return geb.build();
     }
 
+    public boolean isInGears(int gear, GearLocation location) {
+        for (GearRatio gr : this.bikeGears.values()) {
+            if (GearLocation.FRONT.equals(location)) {
+                if (gr.isInFront(gear)) {
+                    return true;
+                }
+            }
+            if (GearLocation.REAR.equals(location)) {
+                if (gr.isInRear(gear)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Gears{" + "bikeGears=" + bikeGears + '}';

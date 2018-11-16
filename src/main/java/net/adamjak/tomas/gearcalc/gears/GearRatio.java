@@ -92,6 +92,14 @@ public class GearRatio {
         return this.rear;
     }
 
+    public boolean isInFront(int gear) {
+        return this.front.contains(gear);
+    }
+
+    public boolean isInRear(int gear) {
+        return this.rear.contains(gear);
+    }
+
     public int[] getFrontAsArray() {
         return this.intSetAsArray(this.front);
     }
