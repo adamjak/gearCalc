@@ -47,7 +47,7 @@ import net.adamjak.tomas.gearcalc.Langs;
  */
 public class MainWindow extends JFrame {
 
-    private static final int DEFAULT_WINDOW_HEIGHT = 400;
+    private static final int DEFAULT_WINDOW_HEIGHT = 600;
     private static final int DEFAULT_WINDOW_WIDTH = 1000;
     private ResourceBundle messages;
 

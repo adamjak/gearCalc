@@ -30,8 +30,10 @@
 package net.adamjak.tomas.gearcalc.gears;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  *
@@ -48,7 +50,7 @@ public class Gears {
     private final Map<String, GearRatio> bikeGears;
 
     private Gears() {
-        this.bikeGears = new LinkedHashMap<>();
+        this.bikeGears = new TreeMap<>();
     }
 
     /**
@@ -117,6 +119,22 @@ public class Gears {
             }
         }
         return false;
+    }
+
+    public Set<Integer> getAllFrontGears() {
+        Set<Integer> frontGears = new TreeSet<Integer>();
+        for (GearRatio gearRatio : this.bikeGears.values()) {
+            frontGears.addAll(gearRatio.getFront());
+        }
+        return frontGears;
+    }
+
+    public Set<Integer> getAllRearGears() {
+        Set<Integer> rearGears = new TreeSet<Integer>();
+        for (GearRatio gearRatio : this.bikeGears.values()) {
+            rearGears.addAll(gearRatio.getRear());
+        }
+        return rearGears;
     }
 
     @Override

@@ -39,6 +39,8 @@ public final class GearsExtremes {
     private int frontMax;
     private int rearMin;
     private int rearMax;
+    private double minRatio;
+    private double maxRatio;
 
     private GearsExtremes() {
     }
@@ -60,6 +62,8 @@ public final class GearsExtremes {
         }
 
         public GearsExtremes build() {
+            this.toBuild.maxRatio = (double) this.toBuild.frontMax / (double) this.toBuild.rearMin;
+            this.toBuild.minRatio = (double) this.toBuild.frontMin / (double) this.toBuild.rearMax;
             GearsExtremes build = this.toBuild;
             this.prepareToBuild();
             return build;
@@ -110,4 +114,13 @@ public final class GearsExtremes {
     public int getRearMax() {
         return rearMax;
     }
+
+    public double getMinRatio() {
+        return minRatio;
+    }
+
+    public double getMaxRatio() {
+        return maxRatio;
+    }
+
 }

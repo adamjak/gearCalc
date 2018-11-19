@@ -62,24 +62,40 @@ public class Main {
     public static void main(String[] args) {
 
         // data for testing - start
-        String bikeName = "GT";
-        Gears.getInstance().creatBike(bikeName);
-        // front 36-24
+        String gtBike = "GT";
+        String gtWithEagle = "GT Eagle";
+        Gears.getInstance().creatBike(gtBike);
         Gears.getInstance()
-                .addGear(bikeName, Gears.GearLocation.FRONT, 36)
-                .addGear(bikeName, Gears.GearLocation.FRONT, 24);
-        // rear 11-13-15-18-21-24-28-32-36-42
+                .addGear(gtBike, Gears.GearLocation.FRONT, 36)
+                .addGear(gtBike, Gears.GearLocation.FRONT, 22);
         Gears.getInstance()
-                .addGear(bikeName, Gears.GearLocation.REAR, 11)
-                .addGear(bikeName, Gears.GearLocation.REAR, 13)
-                .addGear(bikeName, Gears.GearLocation.REAR, 15)
-                .addGear(bikeName, Gears.GearLocation.REAR, 18)
-                .addGear(bikeName, Gears.GearLocation.REAR, 21)
-                .addGear(bikeName, Gears.GearLocation.REAR, 24)
-                .addGear(bikeName, Gears.GearLocation.REAR, 28)
-                .addGear(bikeName, Gears.GearLocation.REAR, 32)
-                .addGear(bikeName, Gears.GearLocation.REAR, 36)
-                .addGear(bikeName, Gears.GearLocation.REAR, 42);
+                .addGear(gtBike, Gears.GearLocation.REAR, 11)
+                .addGear(gtBike, Gears.GearLocation.REAR, 13)
+                .addGear(gtBike, Gears.GearLocation.REAR, 15)
+                .addGear(gtBike, Gears.GearLocation.REAR, 18)
+                .addGear(gtBike, Gears.GearLocation.REAR, 21)
+                .addGear(gtBike, Gears.GearLocation.REAR, 24)
+                .addGear(gtBike, Gears.GearLocation.REAR, 28)
+                .addGear(gtBike, Gears.GearLocation.REAR, 32)
+                .addGear(gtBike, Gears.GearLocation.REAR, 36)
+                .addGear(gtBike, Gears.GearLocation.REAR, 42);
+
+        Gears.getInstance().creatBike(gtWithEagle);
+        Gears.getInstance()
+                .addGear(gtWithEagle, Gears.GearLocation.FRONT, 34);
+        Gears.getInstance()
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 10)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 12)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 14)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 16)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 18)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 21)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 24)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 28)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 32)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 36)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 42)
+                .addGear(gtWithEagle, Gears.GearLocation.REAR, 50);
 
         // data for testing - end
         Langs lang = null;
