@@ -9,12 +9,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <org.apache.maven.plugins.version>3.1.1</org.apache.maven.plugins.version>
+        <org.codehaus.mojo.jaxb2.version>2.4</org.codehaus.mojo.jaxb2.version>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <version>${org.codehaus.mojo.jaxb2.version}</version>
+        </dependency>
+
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${org.apache.maven.plugins.version}</version>
                 <configuration>
                     <finalName>GearCalc</finalName>
                     <archive>
@@ -23,6 +35,26 @@
                             <mainClass>net.adamjak.tomas.gearcalc.Main</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.jaxb2.version}</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>net.adamjak.tomas.gearcalc.xml</packageName>
+                    <sourceType>XmlSchema</sourceType>
+                    <sources>
+                        <source>src/main/resources/xsd-schemas</source>
+                    </sources>
                 </configuration>
             </plugin>
         </plugins>

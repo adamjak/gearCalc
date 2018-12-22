@@ -110,21 +110,23 @@ public class GearsGraph extends JComponent {
         int i = 0;
         while (i <= rearCount) {
 
-            g2.setStroke(DOTTED_STROKE_1);
-            g2.drawLine(
-                    PADDING_LEFT + (i * segment) + quarterSegment,
-                    PADDING_TOP,
-                    PADDING_LEFT + (i * segment) + quarterSegment,
-                    this.getHeight() - PADDING_BOTTOM);
-
             g2.setStroke(DEFAULT_STROKE_1);
             g2.drawLine(
                     PADDING_LEFT + (i * segment) + quarterSegment,
                     this.getHeight() - PADDING_BOTTOM,
                     PADDING_LEFT + (i * segment) + quarterSegment,
                     this.getHeight() - (PADDING_BOTTOM / 5 * 4));
-
             int gearToPrint = i + ge.getRearMin();
+
+            g2.setColor(Color.LIGHT_GRAY);
+            g2.setStroke(DOTTED_STROKE_1);
+            g2.drawLine(
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    PADDING_TOP,
+                    PADDING_LEFT + (i * segment) + quarterSegment,
+                    this.getHeight() - PADDING_BOTTOM);
+            g2.setColor(DEFAULT_COLOR);
+
             if (Gears.getInstance().isInGears(gearToPrint, Gears.GearLocation.REAR)) {
                 g2.setFont(BOLD_FONT);
             } else {

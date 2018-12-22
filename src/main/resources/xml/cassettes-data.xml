@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cassettes>
+    <cassette>
+        <brand>Shimano</brand>
+        <name>CS-HG50-9</name>
+        <desc>Sora</desc>
+        <gears>
+            <gear>11</gear>
+            <gear>12</gear>
+            <gear>13</gear>
+            <gear>15</gear>
+            <gear>17</gear>
+            <gear>19</gear>
+            <gear>21</gear>
+            <gear>23</gear>
+            <gear>25</gear>
+        </gears>
+    </cassette>
+    <cassette>
+        <brand>Shimano</brand>
+        <name>CS-R7000</name>
+        <desc>105</desc>
+        <gears>
+            <gear>11</gear>
+            <gear>12</gear>
+            <gear>13</gear>
+            <gear>14</gear>
+            <gear>16</gear>
+            <gear>18</gear>
+            <gear>20</gear>
+            <gear>22</gear>
+            <gear>25</gear>
+            <gear>28</gear>
+            <gear>32</gear>
+        </gears>
+    </cassette>
+</cassettes>

@@ -37,6 +37,8 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.adamjak.tomas.gearcalc.Langs;
@@ -56,8 +58,7 @@ public class MainWindow extends JFrame {
     }
 
     public MainWindow(Langs lang) {
-        System.setProperty("awt.useSystemAAFontSettings", "on");
-        System.setProperty("swing.aatext", "true");
+
         Locale currentLocale;
 
         currentLocale = new Locale(lang.getLang(), lang.getCountry());
@@ -70,8 +71,19 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
         this.setTitle(this.messages.getString("mainWindow.title"));
-
+        this.setJMenuBar(this.getJMenuBar());
         this.add(this.createMainPanel());
+    }
+
+    public JMenuBar getJMenuBar() {
+        JMenuBar jmb = new JMenuBar();
+
+        // file menu
+        JMenu jmFile = new JMenu("File");
+
+        jmb.add(jmFile);
+
+        return jmb;
     }
 
     public JPanel createMainPanel() {

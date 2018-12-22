@@ -44,6 +44,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import net.adamjak.tomas.gearcalc.gears.Gears;
 import net.adamjak.tomas.gearcalc.gui.MainWindow;
 
@@ -59,15 +61,23 @@ public class Main {
     private static final String LANG_FILE = CONF_DIR + File.separator + "lang";
     private static final Langs DEFAULT_LANG = Langs.EN_US;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("com.apple.macos.useScreenMenuBar", "true");
+        System.setProperty("com.apple.mrj.application.apple.menu.about.name", "GearCalc");
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        System.setProperty("awt.useSystemAAFontSettings", "on");
+        System.setProperty("swing.aatext", "true");
 
         // data for testing - start
         String gtBike = "GT";
         String gtWithEagle = "GT Eagle";
         Gears.getInstance().creatBike(gtBike);
         Gears.getInstance()
-                .addGear(gtBike, Gears.GearLocation.FRONT, 36)
-                .addGear(gtBike, Gears.GearLocation.FRONT, 22);
+                .addGear(gtBike, Gears.GearLocation.FRONT, 38)
+                .addGear(gtBike, Gears.GearLocation.FRONT, 24);
         Gears.getInstance()
                 .addGear(gtBike, Gears.GearLocation.REAR, 11)
                 .addGear(gtBike, Gears.GearLocation.REAR, 13)
@@ -82,7 +92,7 @@ public class Main {
 
         Gears.getInstance().creatBike(gtWithEagle);
         Gears.getInstance()
-                .addGear(gtWithEagle, Gears.GearLocation.FRONT, 34);
+                .addGear(gtWithEagle, Gears.GearLocation.FRONT, 32);
         Gears.getInstance()
                 .addGear(gtWithEagle, Gears.GearLocation.REAR, 10)
                 .addGear(gtWithEagle, Gears.GearLocation.REAR, 12)
